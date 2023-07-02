@@ -9,47 +9,67 @@ CollisionHandler::CollisionHandler()
 CollisionHandler::~CollisionHandler()
 {}
 
-void CollisionHandler::Update(map<int, GameObjectPtr> gameObjects)
+void CollisionHandler::CheckCollision(map<int, GameObjectPtr> gameObjects)
 {
     map<int, Vector2f> collisions;
     for (auto const &[id, gameObject] : gameObjects)
     {
         ColliderPtr collider = gameObject->GetCollider();
-
-        Vector2f position = collider->GetPosition();
-        float radius = collider->GetRadius();
-
-        for (auto other : m_colliders)
-        {
-            if (collider == other)
-                continue;
-
-            Vector2f otherPosition = other->GetPosition();
-            float distance = position.Distance(otherPosition);
-
-            float otherRadius = other->GetRadius();
-            float threshold = radius + otherRadius;
-
-            if (distance > threshold)
-                continue;
-            
-            float overlap = threshold - distance;
-            overlap /= threshold;
-            overlap *= radius;
-
-            Vector2f deltaPosition = position.Toward(otherPosition);
-            deltaPosition.x *= -overlap;
-            deltaPosition.y *= -overlap;
-
-            if (collisions.contains(id))
-                collisions[id] += deltaPosition;
-            else
-                collisions[id] = deltaPosition;
-        }
+        Vector2f force = CheckCollision(collider);
+        collisions[id] = force;
     }
 
     for (auto const &[id, deltaPosition] : collisions)
         gameObjects[id]->Move(deltaPosition);
+}
+
+Vector2f CollisionHandler::CheckCollision(ColliderPtr collider)
+{
+    Vector2f totalForce = Vector2f();
+
+    // Check if collider is valid
+    if(!collider)
+        return totalForce;
+
+    Vector2f position = collider->GetPosition();
+    float radius = collider->GetRadius();
+
+    for (auto const other : m_colliders)
+    {
+        // Don't check a collider against itself
+        if (collider == other)
+            continue;
+
+        Vector2f otherPosition = other->GetPosition();
+        float otherRadius = other->GetRadius();
+
+        // Get the distance between colliders
+        float distance = position.Distance(otherPosition);
+
+        // Calculate the threshold for a collision
+        float threshold = radius + otherRadius;
+
+        // Check for a collision
+        if (distance > threshold)
+            continue;
+
+        // Calculate the overlap of the colliders
+        float overlap = threshold - distance;
+
+        // Get the vector of the force
+        Vector2f force = otherPosition.Toward(position);
+
+        // Scale the force
+        float forceScale = overlap / threshold;
+        forceScale *= radius;
+        force.x *= forceScale;
+        force.y *= forceScale;
+
+        // Add the force to the total force
+        totalForce += force;
+    }
+
+    return totalForce;
 }
 
 void CollisionHandler::Register(GameObjectPtr gameObject)
@@ -60,6 +80,9 @@ void CollisionHandler::Register(GameObjectPtr gameObject)
 
 void CollisionHandler::Register(ColliderPtr collider)
 {
+    if (!collider)
+        return;
+
     m_colliders.insert(collider);
 }
 

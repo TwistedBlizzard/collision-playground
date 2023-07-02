@@ -23,17 +23,12 @@ public:
     CollisionHandler();
     ~CollisionHandler();
 
-    /********\
-    * Update *
-    \********/
-
-    void Update(map<int, GameObjectPtr> gameObjects);
-
     /***********\
     * Collision *
     \***********/
 
-    
+    void CheckCollision(map<int, GameObjectPtr> gameObjects);
+    Vector2f CheckCollision(ColliderPtr collider);
 
     /**************\
     * Registration *

@@ -67,7 +67,7 @@ void Engine::Update()
         gameObject->Draw(m_renderer);
     }
 
-    m_collisionHandler->Update(m_gameObjects);
+    m_collisionHandler->CheckCollision(m_gameObjects);
 
     m_renderer->Present();
 }
