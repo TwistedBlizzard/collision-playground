@@ -1,0 +1,2 @@
+add_executable(CollisionPlayground CollisionPlayground.cpp)
+target_link_libraries(CollisionPlayground PUBLIC Engine)
