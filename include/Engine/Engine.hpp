@@ -12,9 +12,10 @@ using std::map;
 
 // Engine
 
+#include "CollisionHandler.hpp"
 #include "GameObject.hpp"
 #include "Renderer.hpp"
-#include "CollisionHandler.hpp"
+#include "Timing.hpp"
 
 class Engine
 {
@@ -47,10 +48,11 @@ private:
     bool m_running;
 
     int m_nextID;
-
     map<int, GameObjectPtr> m_gameObjects;
+
     CollisionHandlerPtr m_collisionHandler;
     RendererPtr m_renderer;
+    TimingPtr m_timing;
 };
 
 #endif

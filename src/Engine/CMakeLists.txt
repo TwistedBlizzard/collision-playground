@@ -5,7 +5,8 @@ set(SOURCE_LIST
     CollisionHandler.cpp
     Engine.cpp
     GameObject.cpp
-    Renderer.cpp)
+    Renderer.cpp
+    Timing.cpp)
 
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 

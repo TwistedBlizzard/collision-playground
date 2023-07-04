@@ -3,6 +3,8 @@
 #include <memory>
 using std::make_shared;
 
+#define SPEED 50
+
 Engine::Engine() :
 m_initialised(false),
 m_nextID(0),
@@ -23,7 +25,10 @@ void Engine::Init()
 
     m_collisionHandler = make_shared<CollisionHandler>();
     m_renderer = make_shared<Renderer>();
+    m_timing = make_shared<Timing>();
+
     m_renderer->Init();
+    m_timing->Init();
 
     m_initialised = true;
 }
@@ -55,14 +60,16 @@ void Engine::Update()
 
     m_renderer->Clear();
 
+    float deltaTime = m_timing->DeltaTime();
+
     Vector2f target = Vector2f(512.0f, 384.0f);
 
     for (auto const &[id, gameObject] : m_gameObjects)
     {
         Vector2f position = gameObject->GetPosition();
         Vector2f deltaPosition = position.Toward(target);
-        deltaPosition.x *= 0.01;
-        deltaPosition.y *= 0.01;
+        deltaPosition.x *= SPEED * deltaTime;
+        deltaPosition.y *= SPEED * deltaTime;
         gameObject->Move(deltaPosition);
         gameObject->Draw(m_renderer);
     }
@@ -70,6 +77,8 @@ void Engine::Update()
     m_collisionHandler->CheckCollision(m_gameObjects);
 
     m_renderer->Present();
+
+    m_timing->Update();
 }
 
 GameObjectPtr Engine::CreateGameObject(Vector2f position)
