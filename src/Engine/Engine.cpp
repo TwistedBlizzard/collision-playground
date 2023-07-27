@@ -9,8 +9,11 @@ Engine::Engine() :
 m_initialised(false),
 m_nextID(0),
 m_running(false),
+m_inputFlags(0),
 m_collisionHandler(nullptr),
-m_renderer(nullptr)
+m_inputManager(nullptr),
+m_renderer(nullptr),
+m_timing(nullptr)
 {}
 
 Engine::~Engine()
@@ -24,6 +27,7 @@ void Engine::Init()
     SDL_Init(SDL_INIT_EVERYTHING);
 
     m_collisionHandler = make_shared<CollisionHandler>();
+    m_inputManager = make_shared<InputManager>(&m_inputFlags);
     m_renderer = make_shared<Renderer>();
     m_timing = make_shared<Timing>();
 
@@ -56,6 +60,8 @@ void Engine::Update()
             m_running = false;
             return;
         }
+
+        m_inputManager->HandleEvent(event);
     }
 
     m_renderer->Clear();

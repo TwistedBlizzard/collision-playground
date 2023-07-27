@@ -14,6 +14,8 @@ using std::map;
 
 #include "CollisionHandler.hpp"
 #include "GameObject.hpp"
+#include "Input.hpp"
+#include "InputManager.hpp"
 #include "Renderer.hpp"
 #include "Timing.hpp"
 
@@ -50,7 +52,10 @@ private:
     int m_nextID;
     map<int, GameObjectPtr> m_gameObjects;
 
+    InputFlags m_inputFlags;
+
     CollisionHandlerPtr m_collisionHandler;
+    InputManagerPtr m_inputManager;
     RendererPtr m_renderer;
     TimingPtr m_timing;
 };

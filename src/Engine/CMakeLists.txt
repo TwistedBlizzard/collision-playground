@@ -5,6 +5,7 @@ set(SOURCE_LIST
     CollisionHandler.cpp
     Engine.cpp
     GameObject.cpp
+    InputManager.cpp
     Renderer.cpp
     Timing.cpp)
 
