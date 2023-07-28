@@ -9,6 +9,7 @@ Engine::Engine() :
 m_initialised(false),
 m_nextID(0),
 m_running(false),
+m_player(nullptr),
 m_inputFlags(0),
 m_collisionHandler(nullptr),
 m_inputManager(nullptr),
@@ -33,6 +34,13 @@ void Engine::Init()
 
     m_renderer->Init();
     m_timing->Init();
+
+    Vector2f playerPos = m_renderer->GetWindowSize();
+    playerPos.x /= 2;
+    playerPos.y /= 2;
+    m_player = make_shared<Player>(playerPos);
+    m_player->Init();
+    m_collisionHandler->Register(m_player);
 
     m_initialised = true;
 }
@@ -68,7 +76,14 @@ void Engine::Update()
 
     float deltaTime = m_timing->DeltaTime();
 
-    Vector2f target = Vector2f(512.0f, 384.0f);
+    Vector2f deltaPosition = m_inputManager->GetVector();
+    deltaPosition = deltaPosition.Normal();
+    deltaPosition.x *= m_player->GetSpeed() * deltaTime;
+    deltaPosition.y *= m_player->GetSpeed() * deltaTime;
+    m_player->Move(deltaPosition);
+    m_player->Draw(m_renderer);
+
+    Vector2f target = m_player->GetPosition();
 
     for (auto const &[id, gameObject] : m_gameObjects)
     {

@@ -2,6 +2,9 @@
 
 #include <cmath>
 
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
 #define SEGMENTS 36
 
 Renderer::Renderer():
@@ -18,11 +21,16 @@ void Renderer::Init()
         return;
 
     SDL_Window* window = nullptr;
-    SDL_CreateWindowAndRenderer(1024, 768, 0, &window, &m_renderer);
+    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &m_renderer);
 
     SDL_SetRenderDrawColor(m_renderer, 20, 20, 20, 255);
 
     m_initialised = true;
+}
+
+Vector2f Renderer::GetWindowSize()
+{
+    return Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void Renderer::Clear()

@@ -6,6 +6,7 @@ set(SOURCE_LIST
     Engine.cpp
     GameObject.cpp
     InputManager.cpp
+    Player.cpp
     Renderer.cpp
     Timing.cpp)
 

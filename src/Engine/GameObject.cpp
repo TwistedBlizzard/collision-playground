@@ -1,5 +1,7 @@
 #include "Engine/GameObject.hpp"
 
+#define DEFAULT_COLLIDER_RADIUS 10.0f
+
 using std::make_shared;
 
 GameObject::GameObject(Vector2f position) :
@@ -24,7 +26,7 @@ void GameObject::Init()
         return;
 
     // Create our collider
-    m_collider = make_shared<Collider>(m_position, 10.0f);
+    m_collider = make_shared<Collider>(m_position, DEFAULT_COLLIDER_RADIUS);
 
     m_initialised = true;
 }

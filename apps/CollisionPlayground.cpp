@@ -13,7 +13,7 @@ int main()
     ColliderPtr collider = gameObject->GetCollider();
     collider->SetRadius(20.0f);
     engine->CreateGameObject(Vector2f(400.0f, 20.0f));
-    engine->CreateGameObject(Vector2f(512.0f, 384.0f));
+    // engine->CreateGameObject(Vector2f(512.0f, 384.0f));
 
     engine->Start();
 

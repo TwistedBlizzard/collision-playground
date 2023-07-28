@@ -27,6 +27,12 @@ public:
     void Init();
 
     /********\
+    * Window *
+    \********/
+
+    Vector2f GetWindowSize();
+
+    /********\
     * Screen *
     \********/
 

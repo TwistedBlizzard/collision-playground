@@ -23,7 +23,7 @@ public:
     * Setup *
     \*******/
 
-    void Init();
+    virtual void Init();
 
     /*************\
     * Positioning *
@@ -47,7 +47,7 @@ public:
 
     void Draw(RendererPtr renderer);
 
-private:
+protected:
     bool m_initialised;
 
     Vector2f m_position;

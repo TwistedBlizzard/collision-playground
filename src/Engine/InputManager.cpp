@@ -16,6 +16,25 @@ void InputManager::HandleEvent(SDL_Event event)
         KeyUp(event.key.keysym.sym);
 }
 
+Vector2f InputManager::GetVector()
+{
+    Vector2f vector = Vector2f();
+
+    if (*m_inputFlags & InputActions::Up)
+        vector.y = -1;
+    
+    if (*m_inputFlags & InputActions::Down)
+        vector.y += 1;
+
+    if (*m_inputFlags & InputActions::Left)
+        vector.x = -1;
+    
+    if (*m_inputFlags & InputActions::Right)
+        vector.x += 1;
+
+    return vector;
+}
+
 InputActions InputManager::GetAction(SDL_Keycode code)
 {
     InputActions action = InputActions::None;

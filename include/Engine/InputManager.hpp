@@ -13,6 +13,7 @@ using std::shared_ptr;
 // Engine
 
 #include "Input.hpp"
+#include "Vector2f.hpp"
 
 class InputManager
 {
@@ -25,7 +26,12 @@ public:
     \****************/
 
     void HandleEvent(SDL_Event event);
-    
+
+    /***************\
+    * Input Parsing *
+    \***************/
+
+    Vector2f GetVector();    
 
 private:
     InputFlags* m_inputFlags;

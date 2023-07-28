@@ -16,6 +16,7 @@ using std::map;
 #include "GameObject.hpp"
 #include "Input.hpp"
 #include "InputManager.hpp"
+#include "Player.hpp"
 #include "Renderer.hpp"
 #include "Timing.hpp"
 
@@ -51,6 +52,8 @@ private:
 
     int m_nextID;
     map<int, GameObjectPtr> m_gameObjects;
+
+    PlayerPtr m_player;
 
     InputFlags m_inputFlags;
 
