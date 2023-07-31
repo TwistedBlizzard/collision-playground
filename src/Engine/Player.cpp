@@ -1,6 +1,6 @@
 #include "Engine/Player.hpp"
 
-#define PLAYER_COLLIDER_RADIUS 30.0f
+#define PLAYER_COLLIDER_RADIUS 50.0f
 #define PLAYER_SPEED 75.0f
 
 using std::make_shared;

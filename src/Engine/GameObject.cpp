@@ -1,6 +1,6 @@
 #include "Engine/GameObject.hpp"
 
-#define DEFAULT_COLLIDER_RADIUS 10.0f
+#define DEFAULT_COLLIDER_RADIUS 25.0f
 
 using std::make_shared;
 
