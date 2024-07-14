@@ -10,10 +10,10 @@ InputManager::~InputManager()
 void InputManager::HandleEvent(SDL_Event event)
 {
     if (event.type == SDL_EVENT_KEY_DOWN)
-        KeyDown(event.key.keysym.sym);
+        KeyDown(event.key.key);
 
     if (event.type == SDL_EVENT_KEY_UP)
-        KeyUp(event.key.keysym.sym);
+        KeyUp(event.key.key);
 }
 
 Vector2f InputManager::GetVector()
@@ -42,19 +42,19 @@ InputActions InputManager::GetAction(SDL_Keycode code)
     switch(code)
     {
     case SDLK_UP:
-    case SDLK_w:
+    case SDLK_W:
         action = InputActions::Up;
         break;
     case SDLK_DOWN:
-    case SDLK_s:
+    case SDLK_S:
         action = InputActions::Down;
         break;
     case SDLK_LEFT:
-    case SDLK_a:
+    case SDLK_A:
         action = InputActions::Left;
         break;
     case SDLK_RIGHT:
-    case SDLK_d:
+    case SDLK_D:
         action = InputActions::Right;
         break;
     default:

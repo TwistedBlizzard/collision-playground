@@ -1,6 +1,9 @@
 #include "Engine/Renderer.hpp"
 
 #include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif // M_PI
 
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 768
@@ -21,7 +24,7 @@ void Renderer::Init()
         return;
 
     SDL_Window* window = nullptr;
-    SDL_CreateWindowAndRenderer(WINDOW_WIDTH, WINDOW_HEIGHT, 0, &window, &m_renderer);
+    SDL_CreateWindowAndRenderer("Collision Playground", 1280, 720, NULL, &window, &m_renderer);
 
     SDL_SetRenderDrawColor(m_renderer, 20, 20, 20, 255);
 

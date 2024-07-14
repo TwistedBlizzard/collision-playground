@@ -25,7 +25,7 @@ void Engine::Init()
     if (m_initialised)
         return;
 
-    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_Init(SDL_INIT_EVENTS);
 
     m_collisionHandler = make_shared<CollisionHandler>();
     m_inputManager = make_shared<InputManager>(&m_inputFlags);
